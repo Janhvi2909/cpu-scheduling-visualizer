@@ -1,0 +1,131 @@
+.wrapper {
+  margin-top: var(--space-4);
+}
+
+.chartWrap {
+  min-width: 100%;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.blocks {
+  display: flex;
+  min-height: 56px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.block,
+.blockIdle {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 48px;
+  transition: transform 0.2s;
+  animation: blockIn 0.35s ease-out backwards;
+}
+
+@keyframes blockIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.block:hover,
+.blockIdle:hover {
+  transform: scale(1.02);
+  z-index: 1;
+}
+
+.block {
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.blockPid {
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-family: var(--font-mono);
+}
+
+.blockTime {
+  font-size: 0.7rem;
+  opacity: 0.95;
+  font-family: var(--font-mono);
+}
+
+.blockIdle {
+  background: var(--idle-bg);
+  color: var(--text-muted);
+  border-right: 1px dashed var(--border);
+}
+
+.idleLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.timeAxis {
+  position: relative;
+  height: 24px;
+  margin-top: var(--space-2);
+}
+
+.tick {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tick::before {
+  content: '';
+  width: 1px;
+  height: 6px;
+  background: var(--border);
+  margin-bottom: 2px;
+}
+
+.tickLabel {
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.empty {
+  text-align: center;
+  padding: var(--space-12) var(--space-6);
+  background: var(--idle-bg);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text-muted);
+  isolation: isolate;
+}
+
+.emptyIcon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-4);
+  opacity: 0.4;
+  line-height: 1;
+  display: block;
+}
+
+.empty p {
+  margin: 0;
+  font-size: 0.9rem;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}

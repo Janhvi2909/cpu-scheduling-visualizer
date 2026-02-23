@@ -1,58 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>CPU Scheduling Visualizer</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-  <h1>CPU Scheduling Visualizer</h1>
-
-  <div class="input-section">
-    <h2>Enter Processes</h2>
-
-    <label>Process ID:</label>
-    <input type="text" id="pid">
-
-    <label>Arrival Time:</label>
-    <input type="number" id="arrival">
-
-    <label>Burst Time:</label>
-    <input type="number" id="burst">
-
-    <button onclick="addProcess()">Add Process</button>
-  </div>
-
-  <div class="control-section">
-
-    <button onclick="runFCFS()">Run FCFS Scheduling</button>
-    <button onclick="runSJF()">Run SJF Scheduling</button>
-    <p id="algoName"><b>Algorithm:</b> Not Selected</p>
-
-
-  </div>
-
-  <div class="output-section">
-    <h2>Gantt Chart</h2>
-    <div id="gantt"></div>
-  </div>
-
-  <h2>Process Details</h2>
-<table border="1" width="100%">
-  <thead>
-    <tr>
-      <th>Process</th>
-      <th>Arrival Time</th>
-      <th>Burst Time</th>
-      <th>Waiting Time</th>
-      <th>Turnaround Time</th>
-    </tr>
-  </thead>
-  <tbody id="processTable"></tbody>
-</table>
-
-
-  <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CPU Scheduling Visualizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
