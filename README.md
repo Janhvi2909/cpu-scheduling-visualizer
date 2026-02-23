@@ -125,23 +125,6 @@ Bar charts visually highlight performance differences.
 
 ---
 
-## 🔹 OS Concepts Section
-
-Includes explanations of:
-
-- Process
-- Ready Queue
-- CPU Burst
-- Arrival Time
-- CPU Scheduling
-- Preemption
-- Time Quantum
-- Context Switching
-- Throughput
-- CPU Utilization
-
----
-
 # 🏗️ Code Structure & Modularity
 ```bash
 src/
@@ -195,17 +178,6 @@ src/
 - Fixed queue priority hierarchy
 - Different scheduling policies per queue
 - Lower queues execute only when higher queues are empty
-
----
-
-# 🎨 UI & Visualization
-
-- Professional dark dashboard theme
-- Animated heading effects
-- Smooth Gantt block animations
-- Responsive layout
-- Gradient and glow effects
-- Performance comparison charts
 
 ---
 
@@ -266,6 +238,7 @@ You can add screenshots below:
 ```markdown
 ![Gantt Chart](./screenshots/gantt.png)
 ![Comparison View](./screenshots/comparison.png)
+```
 
 # 🏁 Conclusion
 
