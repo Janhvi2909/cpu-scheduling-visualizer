@@ -233,12 +233,9 @@ This project serves as:
 
 # 📸 Screenshots
 
-You can add screenshots below:
-
-```markdown
 ![Gantt Chart](./screenshots/gantt.png)
 ![Comparison View](./screenshots/comparison.png)
-```
+
 
 # 🏁 Conclusion
 
