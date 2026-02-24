@@ -1,5 +1,8 @@
 # 🚀 CPU Scheduling Visualizer
 
+🔗 **Live Demo:**  
+👉 https://cpu-scheduling-visualizer-drab.vercel.app/
+
 A production-style **React + Vite** application that simulates and compares multiple CPU scheduling algorithms, visualizes execution using dynamic Gantt charts, and computes full Operating System performance metrics.
 
 This project bridges theoretical OS scheduling concepts with interactive visualization and measurable system performance analysis.
