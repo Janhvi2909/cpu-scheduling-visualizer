@@ -14,6 +14,27 @@ function ensureQueueLevel(p) {
   return { ...p, queueLevel: p.queueLevel ?? 0 }
 }
 
+
+/**
+ * FCFS (First-Come First-Served)
+ *
+ * Logic:
+ * 1. Sort processes by arrival time.
+ * 2. Execute each process fully in arrival order (non-preemptive).
+ * 3. If CPU becomes free before next arrival, insert an Idle block.
+ * 4. For each process:
+ *    - start = currentTime
+ *    - finish = start + burst
+ *    - waitingTime = start - arrival
+ *    - turnaroundTime = finish - arrival
+ *    - responseTime = start - arrival
+ *
+ * Context switches increment after each execution block (including idle transitions).
+ *
+ * Key Property:
+ * - Simple FIFO scheduling.
+ * - Suffers from convoy effect under mixed workloads.
+ */
 /**
  * First-Come First-Served (FCFS) - Non-preemptive
  */
@@ -60,6 +81,22 @@ export function runFCFS(processes) {
   return { ganttBlocks, processResults, totalTime: currentTime, contextSwitches }
 }
 
+
+/**
+ * SJF (Shortest Job First) – Non-preemptive
+ *
+ * Logic:
+ * 1. Maintain a list of remaining processes.
+ * 2. At each time step:
+ *    - Filter processes that have arrived.
+ *    - Select the one with smallest burst time.
+ * 3. Execute it completely.
+ * 4. If no process is available, insert Idle block.
+ *
+ * This ensures:
+ * - Minimum average waiting time (theoretically optimal if burst is known).
+ * - Risk of starvation for long jobs.
+ */
 /**
  * Shortest Job First (SJF) - Non-preemptive
  */
@@ -112,6 +149,28 @@ export function runSJF(processes) {
   return { ganttBlocks, processResults, totalTime: time, contextSwitches }
 }
 
+
+/**
+ * SRTF (Shortest Remaining Time First) – Preemptive
+ *
+ * Logic:
+ * 1. Maintain remaining burst for each process.
+ * 2. At each scheduling decision:
+ *    - Select the arrived process with smallest remaining time.
+ * 3. Determine next event:
+ *    - Either completion of current process
+ *    - Or arrival of a new process (possible preemption)
+ * 4. Execute only until next event.
+ *
+ * Preemption occurs if:
+ *   newProcess.remaining < current.remaining
+ *
+ * Metrics computed after full Gantt construction.
+ *
+ * Key Trade-off:
+ * - Minimizes average waiting time.
+ * - High context switching overhead.
+ */
 /**
  * Shortest Remaining Time First (SRTF) - Preemptive
  */
@@ -180,6 +239,24 @@ export function runSRTF(processes) {
   return { ganttBlocks, processResults, totalTime: time, contextSwitches }
 }
 
+
+/**
+ * Round Robin (RR) – Preemptive Time Sharing
+ *
+ * Logic:
+ * 1. Maintain a ready queue.
+ * 2. Enqueue processes as they arrive.
+ * 3. Dequeue first process and execute for:
+ *       min(timeQuantum, remainingBurst)
+ * 4. If unfinished, reinsert at end of queue.
+ * 5. Repeat until all processes complete.
+ *
+ * Idle blocks inserted if queue is empty.
+ *
+ * Key Insight:
+ * - Ensures fairness and starvation freedom.
+ * - Performance highly sensitive to time quantum.
+ */
 /**
  * Round Robin (RR) - Preemptive, time quantum
  */
@@ -250,6 +327,26 @@ export function runRoundRobin(processes, timeQuantum = 2) {
   return { ganttBlocks, processResults, totalTime: time, contextSwitches }
 }
 
+
+
+/**
+ * Priority Scheduling
+ * Lower priority number = higher scheduling priority.
+ *
+ * Non-Preemptive Mode:
+ *   - Select highest-priority arrived process.
+ *   - Execute completely.
+ *
+ * Preemptive Mode:
+ *   - At every arrival event:
+ *       check if new process has higher priority.
+ *   - If yes, preempt current process.
+ *   - Execute only until next arrival or completion.
+ *
+ * Risks:
+ *   - Starvation of low-priority processes.
+ *   - Aging required in real systems to prevent starvation.
+ */
 /**
  * Priority Scheduling - optional preemptive
  * Lower priority number = higher priority (1 = highest)
@@ -364,6 +461,28 @@ export function runPriority(processes, preemptive = false) {
   return { ganttBlocks, processResults, totalTime: time, contextSwitches }
 }
 
+
+
+/**
+ * Multilevel Queue (MLQ)
+ *
+ * Structure:
+ *   - Q0 → RR (TQ = 2)
+ *   - Q1 → RR (TQ = 4)
+ *   - Q2 → FCFS
+ *
+ * Lower queueLevel = higher priority queue.
+ *
+ * Logic:
+ * 1. Processes are permanently assigned to a queue.
+ * 2. Always check highest-priority non-empty queue.
+ * 3. Apply that queue's scheduling algorithm.
+ * 4. No movement between queues (unlike MLFQ).
+ *
+ * Trade-offs:
+ *   - Good workload separation.
+ *   - Inflexible and may cause starvation of lower queues.
+ */
 /**
  * Multilevel Queue: Q0 = RR TQ=2, Q1 = RR TQ=4, Q2 = FCFS
  * Processes with lower queueLevel have higher priority (0 = top).
